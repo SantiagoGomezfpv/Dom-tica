@@ -1,0 +1,372 @@
+*:before, *:after {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+html {
+    background-color: #000000;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    display: inline-block;
+    text-align: center;
+}
+
+.background{
+    width: 430px;
+    height: 520px;
+    position: absolute;
+    transform: translate(-50%, -50%);
+    left: 50%;
+    top: 50%;;
+}
+
+.background .shape{
+    height: 200px;
+    width: 200px;
+    position: absolute;
+    border-radius: 50%;
+}
+
+form{
+    height: 520px;
+    width: 400px;
+    background-color: rgba(255, 255, 255, 0.13);
+    position: absolute;
+    transform: translate(-50%, -50%);
+    top: 50%;
+    left: 75%;
+    border-radius: 50px;
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 0 40px rgba(8, 7, 16, 0.6);
+    padding: 50px 35px ;
+}
+
+form *{
+    font-family: 'Poppins', sans-serif;
+    color: #ffffff;
+    letter-spacing: 0.5px;
+    outline: none;
+    border: none;
+}
+
+form h3{
+    font-size: 3.5rem;
+    font-weight: 500;
+    line-height: 42px;
+    text-align: center;
+}
+
+label{
+    display: flex;
+    align-items: start;
+    margin-top: 30px;
+    padding-left: 15px;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+input{
+    display: block;
+    height: 50px;
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0.07);
+    border-radius: 50px;
+    padding: 0 10px;
+    margin-top: 8px;
+    font-size: 14px;
+    font-weight: 300;
+}
+
+::placeholder{
+    color: #e5e5e5;
+}
+
+form button{
+    margin-top: 50px;
+    width: 30%;
+    background-color: #63D4DB;
+    color: #ffffff;
+    padding: 15px 0;
+    font-size: 18px;
+    font-weight: 600;
+    border-radius: 30px;
+    cursor: pointer;
+}
+
+p {
+    font-size: 1.2rem;
+}
+
+body {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.content-wrapper {
+    flex: 1;
+}
+
+h1 {
+    margin-top: 1px;
+    margin-bottom: 1px;
+    font-size: 2rem;
+    width: 30rem;
+}
+
+#video-fondo {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: -1;
+    object-fit: contain;
+    object-position:center;
+}
+
+#luz {
+    display: none;
+}
+
+#icono-luz {
+    font-size: 4.5rem; 
+    padding: 0px;
+}
+
+#authentication-bar{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    justify-items: center;
+    align-items: center;
+    align-content: center;
+    color: white;
+    background-color: #2B2A3F;
+    padding: 5px 25px 5px 5px;
+    margin-bottom: 50px;
+}
+
+.content {
+    padding: 20px;
+}
+
+.card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #1F1E2B;
+    color: white;
+    box-shadow: 2px 2px 12px 1px #1F1E2B;
+    padding: 3%;
+    border-radius: 20px;
+    font-family: 'Seven Segment', sans-serif;
+}
+
+.cards {
+    max-width: 90%;
+    margin: 0 auto;
+    margin-bottom: 20px;
+    display: grid;
+    grid-gap: 2rem;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+}
+
+.reading {
+    font-size: 3.2rem;
+}
+
+button {
+    background-color: #049faa;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+}
+button:hover {
+    opacity: 0.8;
+}
+
+input[type=text], input[type=password] {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+.superiorDiv{
+    max-width: 90%;
+    margin: 0 auto;
+    margin-bottom: 20px;
+    display: grid;
+    grid-template-columns: 39% 60%;
+    grid-gap: 1rem;
+}
+
+#sensoiresDiv{
+    max-width: 100%;
+    display: grid;
+    grid-gap: 0.5rem;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+}
+
+#chart-temperature {
+    width: 100%;
+    min-width: 310px;
+    max-width: 800px;
+}
+
+.switch {
+    position: relative; 
+    display: inline-block; 
+    width: 70px; 
+    height: 40px; 
+    margin-bottom: 20px;
+}
+
+.switch input {display: none;}
+
+.slider { 
+    background-color: #63D4DB; 
+    position: absolute; 
+    top: 0; left: 0; right: 0; bottom: 0; 
+    border-radius: 68px; 
+    opacity: 0.8; 
+    cursor: pointer;
+}
+
+.slider:before {
+    position: absolute; 
+    content: ""; 
+    height: 35px; 
+    width: 35px; 
+    left: 5px;
+    bottom: 2px; 
+    background-color: #1F1E2B; 
+    -webkit-transition: .4s; 
+    transition: .4s; 
+    border-radius: 68px
+}
+
+input:checked+.slider{background-color: #000000}
+input:checked+.slider:before {
+    background-color: #63D4DB;
+    -webkit-transform: translateX(52px); 
+    -ms-transform: translateX(52px); 
+    transform: translateX(37px)
+}
+
+.switchSuperior{
+    width: 75%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+footer {
+    background-color: #1F1E2B;
+    color: white;
+    padding: 10px;
+    text-align: center;
+}
+
+#footerBotton{
+    font-size: 0.8rem;
+}
+
+.designer{
+    opacity: 0.7;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 400;
+    margin: 0px 5px;
+}
+
+@media (max-width: 768px) { /* Para pantallas móviles */
+    form{
+        height: 430px;
+        width: 300px;
+        top: 60%;
+        left: 50%;
+        border-radius: 50px;
+        backdrop-filter: blur(10px);
+        border: 2px solid rgba(255, 255, 255, 0.1);
+        box-shadow: 0 0 40px rgba(8, 7, 16, 0.6);
+        padding: 10px 15px ;
+    }
+    
+    form h3{
+        font-size: 3rem;
+    }
+    
+    label{
+        margin-top: 10px;
+        font-size: 13px;
+    }
+
+    input{
+        height: 40px;
+        width: 90%;
+        padding: 0 10px;
+        margin-top: 8px;
+        font-size: 14px;
+        font-weight: 300;
+    }
+    
+    form button{
+        margin-top: 10px;
+        padding: 10px 10px;
+    }
+
+    #authentication-bar{
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+
+    h1 {
+        margin-bottom: 30px;
+        font-size: 1.6rem;
+    }
+
+    .background{
+        width: 100%;
+    }
+
+    .superiorDiv{
+        display: flex;
+        flex-direction: column;
+    }
+
+    #sensoiresDiv{
+        max-width: 100%;
+        display: grid;
+        grid-gap: 0.5rem;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    }
+
+    .reading {
+        font-size: 2rem;
+    }
+
+    .cards {
+        grid-gap: 1rem;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    }
+
+    .switchSuperior{
+        flex-direction: column;
+    }
+
+    .switchSuperior p{
+        font-size: 1.3rem;
+        margin: 5px;
+    }
+}

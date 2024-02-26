@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>DOMOTICA 🌎🏠</title>
+
+    <!-- update the version number as needed -->
+    <script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-app.js"></script>
+
+    <!-- include only the Firebase features as you need -->
+    <script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-database.js"></script>
+
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://cdn.rawgit.com/Mikhus/canvas-gauges/gh-pages/download/2.1.7/all/gauge.min.js"></script>
+
+    <script>
+     // REPLACE WITH YOUR web app's Firebase configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyBM6xlrCIxwELolMpQk8J2xR2gRSSisWGI",
+      authDomain: "domotica-iot-e77b4.firebaseapp.com",
+      databaseURL: "https://domotica-iot-e77b4-default-rtdb.firebaseio.com",
+      projectId: "domotica-iot-e77b4",
+      storageBucket: "domotica-iot-e77b4.appspot.com",
+      messagingSenderId: "866365997498",
+      appId: "1:866365997498:web:0d3c6471ad5b3b036bdd83"
+    };
+      // Initialize firebase
+      firebase.initializeApp(firebaseConfig);
+
+      // Make auth and database references
+      const auth = firebase.auth();
+      const db = firebase.database();
+
+    </script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+    <link href="https://fonts.cdnfonts.com/css/seven-segment" rel="stylesheet">
+    <link rel="icon" type="image/png" href="assets/favicon.png">
+    <link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+
+<body>
+
+  <!--TOP BAR-->
+  <div id="authentication-bar">
+      <h1>Lectura sensores IOT <i class="fas fa-clipboard-list"></i></h1> 
+      <div style="display: flex; flex-direction: row;">      
+        <div style="display: flex; flex-direction: column; margin-right: 35px; justify-content: center;">
+          <span style="justify-items: start; width: 2rem;">Hola</span>
+          <span id="user-details">USEREMAIL</span>
+        </div>
+        <div style="display: flex; flex-direction: column;">
+          <a href="/" id="logout-link"><img src="assets/logout.png" alt="Logout" style="height: 3rem;" ></a>
+        </div>
+      </div>
+  </div>
+
+  <div class="content-wrapper">
+
+  <!--LOGIN FORM-->
+  <div id="video-login">
+    <video id="video-fondo" autoplay loop muted>
+      <source src="assets/VideoFondo.mp4" type="video/mp4">
+    </video>
+  </div>
+
+  <div class="background">
+    <div class="shape"></div>
+    <!-- <div class="shape"></div> -->
+  </div>
+  <form id="login-form" style="display: none;">
+    <h3>Inicia sesión</h3>
+    <label for="input-email"><b>Correo electrónico</b></label>
+    <input type="text" placeholder="Email" id="input-email" required>
+    <label for="input-password"><b>Introduce tu contraseña</b></label>
+    <input type="password" placeholder="Password" id="input-password" required>
+    <button type="submit" id="login-button">Ingresar</button>
+    <h4>De no tener credenciales consulte con su proveedor</h4>
+    <p id="error-message" style="color:red;"></p>
+  </form>
+
+  <!--CONTENT (SENSOR READINGS)-->
+  <div class="content-sign-in" id="content-sign-in">
+    
+    
+      <!--GRAFICA-->
+      <!--  <div id="charts-div" style="display:none"> -->
+      <div id="charts-div" >
+        <!--TEMPERATURE-CHART-->
+        <div class="superiorDiv">
+          <div class="card">
+            <p><i class="fas fa-chart-line" style="color:#7FC7D2;"></i> TEMPERATURE CHART</p>
+            <div id="chart-temperature" class="chart-container"></div>
+          </div>
+          <div id="sensoiresDiv">
+            <!--TEMPERATURE-->
+            <div class="card">
+              <p><i class="fas fa-temperature-low" style="color:#7FC7D2;"></i> TEMPERATURA</p>
+              <p><span class="reading"><span id="temp"></span> &deg;C</span></p>
+            </div>
+            <!--HUMIDITY-->
+            <div class="card">
+              <p><i class="fas fa-tint" style="color:#7FC7D2;"></i> HUMEDAD</p>
+              <p><span class="reading"><span id="hum"></span> &percnt;</span></p>
+            </div>
+            <!--PRESSURE-->
+            <div class="card">
+              <p><i class="fas fa-rocket" style="color:#7FC7D2;"></i> GAS</p>
+              <p><span class="reading"><span id="pres"></span> %</span></p>
+            </div>
+            <!--LUMINOCITY-->
+            <div class="card" id="tarjetaDia">
+              <p><i id="icono-luz" class="fa fa-sun" style="color:#ffffff;"></i></p>
+              <p id="texto-luz"></p>
+              <p><span class="reading"><span id="luz"></span></span></p>
+              
+            </div>
+
+            <!--VOLTAJE-->
+            <div class="card">
+              <p><i class="fa fa-exclamation-triangle" style="color:#7FC7D2;"></i> VOLTAJE</p>
+              <p><span class="reading"><span id="volt"></span> V</span></p>
+            </div>
+            <!--CORRIENTE-->
+            <div class="card">
+              <p><i class="fas fa-bolt" style="color:#7FC7D2;"></i> CORRIENTE</p>
+              <p><span class="reading"><span id="amp"></span> A</span></p>
+            </div>
+            <!--POTENCIA-->
+            <div class="card">
+              <p><i class="fa fa-exclamation-circle" style="color:#7FC7D2;"></i> POTENCIA</p>
+              <p><span class="reading"><span id="pot"></span> W</span></p>
+            </div>
+            <!--KWH-->
+            <div class="card">
+              <p><i class="fa fa-home" style="color:#7FC7D2;"></i> KWH</p>
+              <p><span class="reading"><span id="kwh"></span> kwh</span></p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    <div class="cards" id="card1">
+      <!--LED1-->
+      <div class="card card-switch" id="actuadorUno">
+        <div class="switchSuperior">
+          <p id="textoUno">OFF</p>
+          <label class="switch">
+            <input type="checkbox" onchange="toggleLed1(this);" id="led1">
+            <span class="slider"></span>
+          </label>
+        </div>
+        <img src="assets/Icono_LED.png" alt="Actuador" style="height: 9rem;">
+        <h4>LUZ COCINA</h4>
+      </div>
+
+      <!--LED2-->
+      <div class="card card-switch" id="actuadorDos">
+        <div class="switchSuperior">
+          <p id="textoDos">OFF</p>
+          <label class="switch">
+            <input type="checkbox" onchange="toggleLed2(this);" id="led2">
+            <span class="slider"></span>
+          </label>
+        </div>
+        <img src="assets/Icono_LED.png" alt="Actuador" style="height: 9rem;">
+        <h4>LUZ CUARTO</h4>
+      </div>
+
+      <!--LED3-->
+      <div class="card card-switch" id="actuadorTres">
+        <div class="switchSuperior">
+          <p id="textoTres">OFF</p>
+          <label class="switch">
+            <input type="checkbox" onchange="toggleLed3(this);" id="led3">
+            <span class="slider"></span>
+          </label>
+        </div>
+        <img src="assets/Icono_VENTILADOR.png" alt="Actuador" style="height: 9rem;">
+        <h4>VENTILADOR</h4>
+      </div>
+
+      <!--LED4-->
+      <div class="card card-switch" id="actuadorCuatro">
+        <div class="switchSuperior">
+          <p id="textoCuatro">OFF</p>
+          <label class="switch">
+            <input type="checkbox" onchange="toggleLed4(this);" id="led4">
+            <span class="slider"></span>
+          </label>
+        </div>
+        <img src="assets/Icono_PUERTA.png" alt="Actuador" style="height: 9rem;">
+        <h4>PUERTA PRINCIPAL</h4>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <!--Footer-->
+  <footer id="footerBotton">
+    Copyrigth &copy;2024; Created by: <span class="designer">Santiago Gómez</span>
+  </footer>
+
+  <script src="scripts/index.js"></script>
+  <script src="scripts/auth.js"></script>
+  <script src="scripts/charts-definitions.js"></script>
+  </body>
+</html>
